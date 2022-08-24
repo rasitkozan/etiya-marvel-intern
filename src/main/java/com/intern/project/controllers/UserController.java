@@ -21,4 +21,9 @@ public class UserController {
     public ResponseEntity<UserDto> inquireUser(@RequestBody UserDto userDto){
         return ResponseEntity.ok(userService.inquireUser(userDto));
     }
+
+    @PostMapping("/create")
+    public ResponseEntity<UserDto> create(@RequestBody UserDto userDto) {
+        return ResponseEntity.ok(userService.create(userDto));
+    }
 }

@@ -7,15 +7,18 @@ import com.intern.project.repos.IUserRepository;
 import com.intern.project.services.IUserService;
 import org.springframework.stereotype.Service;
 
+import static com.intern.project.Constants.STATUS_SHORT_CODE_ACTIVE;
 
 @Service
 public class UserServiceImpl implements IUserService {
     private final IUserRepository userRepository;
+    private final GeneralStatusServiceImpl generalStatusService;
+    private final GeneralTypeServiceImpl generalTypeService;
 
-
-    public UserServiceImpl(IUserRepository userRepository) {
+    public UserServiceImpl(IUserRepository userRepository, GeneralStatusServiceImpl generalStatusService, GeneralTypeServiceImpl generalTypeService) {
         this.userRepository = userRepository;
-
+        this.generalStatusService = generalStatusService;
+        this.generalTypeService = generalTypeService;
     }
 
     @Override
@@ -27,5 +30,19 @@ public class UserServiceImpl implements IUserService {
 
         return IUserMapper.INSTANCE.userEntityToUserDto(userEntityResponse);
 
+    }
+
+    @Override
+    public UserDto create(UserDto userDto) {
+        userDto.setStatusId(generalStatusService
+                .getByShortCode(STATUS_SHORT_CODE_ACTIVE)
+                .getGeneralStatusId());
+        userDto.setTypeId(generalTypeService
+                .getById(userDto.getTypeId())
+                .getGeneralTypeId());
+        return IUserMapper.INSTANCE
+                .userEntityToUserDto(userRepository
+                    .save(IUserMapper.INSTANCE
+                .userDtoToUserEntity(userDto)));
     }
 }

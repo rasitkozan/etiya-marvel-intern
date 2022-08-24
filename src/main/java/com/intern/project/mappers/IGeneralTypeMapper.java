@@ -14,6 +14,6 @@ public interface IGeneralTypeMapper {
     IGeneralTypeMapper INSTANCE = Mappers.getMapper(IGeneralTypeMapper.class);
 
     GeneralTypeDto generalTypeEntityToGeneralTypeDto(GeneralTypeEntity generalTypeEntity);
-    GeneralTypeEntity GeneralTypeDtoToGeneralTypeEntity(GeneralTypeDto generalTypeDto);
+    GeneralTypeEntity generalTypeDtoToGeneralTypeEntity(GeneralTypeDto generalTypeDto);
     void updateGeneralTypeFromDto(GeneralTypeDto newGeneralTypeDto, @MappingTarget GeneralTypeEntity oldGeneralTypeEntity);
 }

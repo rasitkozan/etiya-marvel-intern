@@ -22,9 +22,17 @@ A user shall enter the offer char information. Validations shall be executed. (W
 
 After all the related information is fulfilled correctly, the user shall push a button to buy the desired offer, and quote like JSON objects have to be created.
 
+
+# Basic Screen Mockups
+
+![Project1_Screen_Mockups drawio](https://user-images.githubusercontent.com/30628100/186344663-e315edd9-085a-4336-b2aa-7bcc141dd8e2.png)
+
+# Example DB Design
+![image](https://user-images.githubusercontent.com/30628100/186345562-1c8f50ce-c80c-423c-87bd-295d9684718a.png)
+
+
 # Backend Scope
 ![image](https://user-images.githubusercontent.com/30628100/186343298-4a5c26d2-4910-48c4-aae2-7ff0f6fd581a.png)
-
 
 ![image](https://user-images.githubusercontent.com/30628100/186343369-68b12807-9526-408f-a326-dcfb0cd0d239.png)
 

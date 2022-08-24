@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface IGeneralStatusRepository extends JpaRepository<GeneralStatusEntity,Integer>{
-    public GeneralStatusEntity getByShortCode(@Param("shortCode") String shortCode);
+    GeneralStatusEntity getByShortCode(String shortCode);
 }

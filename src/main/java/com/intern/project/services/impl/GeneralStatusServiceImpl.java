@@ -1,7 +1,6 @@
 package com.intern.project.services.impl;
 
 import com.intern.project.dtos.GeneralStatusDto;
-import com.intern.project.entities.GeneralStatusEntity;
 import com.intern.project.mappers.IGeneralStatusMapper;
 import com.intern.project.repos.IGeneralStatusRepository;
 import com.intern.project.services.IGeneralStatusService;
@@ -21,15 +20,15 @@ public class GeneralStatusServiceImpl implements IGeneralStatusService {
     public GeneralStatusDto create(GeneralStatusDto generalStatusDto) {
         generalStatusDto.setIsActive(STATUS_ACTIVE);
         return IGeneralStatusMapper.INSTANCE
-                .generalStatusEntityToGeneralStatusDto(generalStatusRepository
+                .toDto(generalStatusRepository
                         .save(IGeneralStatusMapper.INSTANCE
-                .generalStatusDtoToGeneralStatusEntity(generalStatusDto)));
+                .toEntity(generalStatusDto)));
     }
 
     @Override
     public GeneralStatusDto getByShortCode(String shortCode) {
         return IGeneralStatusMapper.INSTANCE
-                .generalStatusEntityToGeneralStatusDto(generalStatusRepository
+                .toDto(generalStatusRepository
                         .getByShortCode(shortCode));
     }
 }

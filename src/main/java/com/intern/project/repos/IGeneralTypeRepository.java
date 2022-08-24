@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 
 public interface IGeneralTypeRepository extends JpaRepository<GeneralTypeEntity,Integer> {
-    public GeneralTypeEntity getByShortCode(@Param("shortCode") String shortCode);
+    GeneralTypeEntity getByShortCode(String shortCode);
 }

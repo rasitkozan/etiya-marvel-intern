@@ -40,9 +40,10 @@ public class UserServiceImpl implements IUserService {
         userDto.setTypeId(generalTypeService
                 .getById(userDto.getTypeId())
                 .getGeneralTypeId());
-        return IUserMapper.INSTANCE
-                .userEntityToUserDto(userRepository
-                    .save(IUserMapper.INSTANCE
-                .userDtoToUserEntity(userDto)));
+        UserEntity userEntity = IUserMapper.INSTANCE.userDtoToUserEntity(userDto);
+        UserEntity testEntity = new UserEntity();
+        return IUserMapper.INSTANCE.userEntityToUserDto(
+                userRepository.save(userEntity)
+        );
     }
 }

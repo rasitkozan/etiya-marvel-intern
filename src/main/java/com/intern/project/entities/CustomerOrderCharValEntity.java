@@ -39,18 +39,18 @@ public class CustomerOrderCharValEntity extends AbstractEditedEntity{
     @Column(name = "char_val_id")
     private int charValId;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "char_val_id",referencedColumnName = "gnl_char_val_id",updatable = false,insertable = false)
-    private GeneralCharValEntity generalCharValEntity;
-
-    @Basic
-    @Column(name = "st_id")
-    private int statusId;
+//    @ManyToOne(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "char_val_id",referencedColumnName = "gnl_char_val_id",updatable = false,insertable = false)
+//    private GeneralCharValEntity generalCharValEntity;
+//
+//    @Basic
+//    @Column(name = "st_id")
+//    private int statusId;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "st_id",referencedColumnName = "gnl_st_id",updatable = false,insertable = false)
     private GeneralStatusEntity generalStatusEntity;
 
-    @Column(name="val")
-    private int val;
+//    @Column(name="val")
+//    private int val;
 }

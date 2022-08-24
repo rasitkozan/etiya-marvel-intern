@@ -17,13 +17,13 @@ public class GeneralCharValEntity extends AbstractEditedEntity{
     @Column(name="gnl_char_val_id")
     private int generalCharValId;
 
-    @Basic
-    @Column(name = "char_id")
-    private int charId;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "char_id",referencedColumnName = "gnl_char_id",updatable = false,insertable = false)
-    private GeneralCharEntity generalCharEntity;
+//    @Basic
+//    @Column(name = "char_id")
+//    private int charId;
+//
+//    @ManyToOne(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "char_id",referencedColumnName = "gnl_char_id",updatable = false,insertable = false)
+//    private GeneralCharEntity generalCharEntity;
 
     @Column(name = "name")
     private String name;
@@ -45,6 +45,9 @@ public class GeneralCharValEntity extends AbstractEditedEntity{
     @JoinColumn(name = "st_id",referencedColumnName = "gnl_st_id",updatable = false,insertable = false)
     private GeneralStatusEntity generalStatusEntity;
 
-    // default_selected????
+//    @Basic
+//    @Column(name = "default_selected")
+//    private int default_selected;
+//    default_selected????
 
 }

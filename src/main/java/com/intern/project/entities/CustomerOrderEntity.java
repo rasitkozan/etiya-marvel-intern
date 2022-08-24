@@ -39,6 +39,6 @@ public class CustomerOrderEntity extends AbstractEditedEntity{
 	private int typeId;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "to_id",referencedColumnName = "gnl_tp_id",updatable = false,insertable = false)
+	@JoinColumn(name = "tp_id",referencedColumnName = "gnl_tp_id",updatable = false,insertable = false)
 	private GeneralTypeEntity generalTypeEntity;
 }

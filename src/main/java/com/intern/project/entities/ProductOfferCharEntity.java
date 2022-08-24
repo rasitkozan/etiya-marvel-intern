@@ -47,7 +47,7 @@ public class ProductOfferCharEntity extends AbstractEditedEntity{
     private GeneralStatusEntity generalStatusEntity;
 
     @Column(name="shrt_code")
-    private int shortCode;
+    private String shortCode;
 
     @Column(name = "descr")
 	private String description;

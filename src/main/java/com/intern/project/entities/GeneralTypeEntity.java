@@ -26,11 +26,11 @@ public class GeneralTypeEntity extends AbstractEditedEntity{
     private String description;
 
     @Column(name = "shr_code")
-    private int shortCode;
+    private String shortCode;
 
     @Column(name = "ent_code_name")
     private String entityCodeName;
 
     @Column(name = "is_actv")
-    private int isActive;
+    private Boolean isActive;
 }

@@ -25,11 +25,11 @@ public class GeneralStatusEntity extends AbstractEditedEntity{
     private String description;
 
     @Column(name="shrt_code")
-    private int shortCode;
+    private String shortCode;
 
     @Column(name="ent_code_name")
-    private int entityCodeName;
+    private String entityCodeName;
 
     @Column(name="is_actv")
-    private int isActive;
+    private Boolean isActive;
 }

@@ -12,7 +12,7 @@ public class GeneralTypeDto {
     private int generalTypeId;
     private String name;
     private String description;
-    private int shortCode;
+    private String shortCode;
     private String entityCodeName;
-    private int isActive;
+    private Boolean isActive;
 }

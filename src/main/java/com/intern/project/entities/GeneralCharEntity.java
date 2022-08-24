@@ -23,7 +23,7 @@ public class GeneralCharEntity extends AbstractEditedEntity {
     private String name;
 
     @Column(name = "shrt_code")
-    private int shortCode;
+    private String shortCode;
 
     @Column(name = "descr")
     private String description;
@@ -36,12 +36,5 @@ public class GeneralCharEntity extends AbstractEditedEntity {
     @JoinColumn(name = "st_id", referencedColumnName = "gnl_st_id", updatable = false, insertable = false)
     private GeneralStatusEntity generalStatusEntity;
 
-    @Basic
-    @Column(name = "char_val_id")
-    private int charValId;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "char_val_id", referencedColumnName = "gnl_char_val_id", updatable = false, insertable = false)
-    private GeneralCharValEntity generalCharValEntity;
 }
 

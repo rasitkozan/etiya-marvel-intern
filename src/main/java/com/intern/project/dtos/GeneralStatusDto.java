@@ -12,9 +12,9 @@ public class GeneralStatusDto {
     private int generalStatusId;
     private String name;
     private String description;
-    private int shortCode;
-    private int entityCodeName;
-    private int isActive;
+    private String shortCode;
+    private String entityCodeName;
+    private Boolean isActive;
 }
 
 

@@ -1,20 +1,21 @@
 package com.intern.project.services.impl;
-
+import com.intern.project.GeneralEnumerationDefinition;
 import com.intern.project.dtos.UserDto;
 import com.intern.project.entities.UserEntity;
+import com.intern.project.exceptions.BadRequestException;
+import com.intern.project.exceptions.NotFoundException;
 import com.intern.project.mappers.IUserMapper;
 import com.intern.project.repos.IUserRepository;
 import com.intern.project.services.IUserService;
 import org.springframework.stereotype.Service;
-
-import static com.intern.project.Constants.STATUS_SHORT_CODE_ACTIVE;
-
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 @Service
 public class UserServiceImpl implements IUserService {
     private final IUserRepository userRepository;
     private final GeneralStatusServiceImpl generalStatusService;
     private final GeneralTypeServiceImpl generalTypeService;
-
     public UserServiceImpl(IUserRepository userRepository, GeneralStatusServiceImpl generalStatusService, GeneralTypeServiceImpl generalTypeService) {
         this.userRepository = userRepository;
         this.generalStatusService = generalStatusService;
@@ -23,27 +24,41 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public UserDto inquireUser(UserDto userDto) {
-
         UserEntity userEntity = IUserMapper.INSTANCE.userDtoToUserEntity(userDto);
         UserEntity userEntityResponse = userRepository
                 .findByUserNameAndPassword(userEntity.getUserName(), userEntity.getPassword());
-
         return IUserMapper.INSTANCE.userEntityToUserDto(userEntityResponse);
-
     }
 
     @Override
     public UserDto create(UserDto userDto) {
+        this.createRequestValidation(userDto);
         userDto.setStatusId(generalStatusService
-                .getByShortCode(STATUS_SHORT_CODE_ACTIVE)
+                .getByShortCode(GeneralEnumerationDefinition.AccountStatusShortCode.ACTIVE_USER.getShortCode())
                 .getGeneralStatusId());
         userDto.setTypeId(generalTypeService
                 .getById(userDto.getTypeId())
                 .getGeneralTypeId());
         UserEntity userEntity = IUserMapper.INSTANCE.userDtoToUserEntity(userDto);
-        UserEntity testEntity = new UserEntity();
         return IUserMapper.INSTANCE.userEntityToUserDto(
                 userRepository.save(userEntity)
         );
+    }
+
+    @Override
+    public List<UserDto> getByTypeShortCode(String shortCode) {
+        int typeId = generalTypeService
+                .getByShortCode(shortCode)
+                .getGeneralTypeId();
+        return userRepository.findByTypeId(typeId)
+                .stream()
+                .map(IUserMapper.INSTANCE::userEntityToUserDto)
+                .collect(Collectors.toList());
+    }
+
+    private void createRequestValidation(UserDto userDto) {
+        if (Objects.isNull(userDto.getUserName()) || Objects.isNull(userDto.getPassword())) {
+            throw new BadRequestException("request invalid");
+        }
     }
 }

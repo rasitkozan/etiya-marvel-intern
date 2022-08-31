@@ -1,12 +1,13 @@
 package com.intern.project.services.impl;
 
 import com.intern.project.dtos.GeneralStatusDto;
+import com.intern.project.exceptions.NotFoundException;
 import com.intern.project.mappers.IGeneralStatusMapper;
 import com.intern.project.repos.IGeneralStatusRepository;
 import com.intern.project.services.IGeneralStatusService;
 import org.springframework.stereotype.Service;
 
-import static com.intern.project.Constants.STATUS_ACTIVE;
+import static com.intern.project.GeneralEnumerationDefinition.STATUS_ACTIVE;
 
 @Service
 public class GeneralStatusServiceImpl implements IGeneralStatusService {
@@ -27,8 +28,9 @@ public class GeneralStatusServiceImpl implements IGeneralStatusService {
 
     @Override
     public GeneralStatusDto getByShortCode(String shortCode) {
-        return IGeneralStatusMapper.INSTANCE
-                .toDto(generalStatusRepository
-                        .getByShortCode(shortCode));
+        return generalStatusRepository
+                .getByShortCode(shortCode)
+                .map(IGeneralStatusMapper.INSTANCE::toDto)
+                .orElseThrow(() -> new NotFoundException("status not found"));
     }
 }

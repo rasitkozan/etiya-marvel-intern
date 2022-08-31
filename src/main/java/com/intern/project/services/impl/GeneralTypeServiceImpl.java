@@ -6,9 +6,7 @@ import com.intern.project.repos.IGeneralTypeRepository;
 import com.intern.project.services.IGeneralTypeService;
 import org.springframework.stereotype.Service;
 
-import java.util.NoSuchElementException;
-
-import static com.intern.project.Constants.STATUS_ACTIVE;
+import static com.intern.project.GeneralEnumerationDefinition.STATUS_ACTIVE;
 
 
 @Service
@@ -25,7 +23,7 @@ public class GeneralTypeServiceImpl implements IGeneralTypeService {
         return IGeneralTypeMapper.INSTANCE
                 .generalTypeEntityToGeneralTypeDto(generalTypeRepository
                         .save(IGeneralTypeMapper.INSTANCE
-                                .generalTypeDtoToGeneralTypeEntity(generalTypeDto)));
+                .generalTypeDtoToGeneralTypeEntity(generalTypeDto)));
     }
 
     @Override

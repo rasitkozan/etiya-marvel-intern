@@ -1,4 +1,5 @@
 package com.intern.project.services.impl;
+
 import com.intern.project.GeneralEnumerationDefinition;
 import com.intern.project.dtos.UserDto;
 import com.intern.project.entities.UserEntity;
@@ -8,14 +9,17 @@ import com.intern.project.mappers.IUserMapper;
 import com.intern.project.repos.IUserRepository;
 import com.intern.project.services.IUserService;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+
 @Service
 public class UserServiceImpl implements IUserService {
     private final IUserRepository userRepository;
     private final GeneralStatusServiceImpl generalStatusService;
     private final GeneralTypeServiceImpl generalTypeService;
+
     public UserServiceImpl(IUserRepository userRepository, GeneralStatusServiceImpl generalStatusService, GeneralTypeServiceImpl generalTypeService) {
         this.userRepository = userRepository;
         this.generalStatusService = generalStatusService;
@@ -56,9 +60,21 @@ public class UserServiceImpl implements IUserService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public UserDto getById(int id) {
+
+        return IUserMapper.INSTANCE.userEntityToUserDto(checkIfUserExistsById(id));
+    }
+
     private void createRequestValidation(UserDto userDto) {
         if (Objects.isNull(userDto.getUserName()) || Objects.isNull(userDto.getPassword())) {
             throw new BadRequestException("request invalid");
         }
+    }
+
+    private UserEntity checkIfUserExistsById(int id) {
+
+            return this.userRepository.findById(id)
+                    .orElseThrow(()->new NotFoundException("USERS.NOT.EXISTS"));
     }
 }

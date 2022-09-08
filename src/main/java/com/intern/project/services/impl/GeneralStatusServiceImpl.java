@@ -1,6 +1,7 @@
 package com.intern.project.services.impl;
 
 import com.intern.project.dtos.GeneralStatusDto;
+import com.intern.project.entities.GeneralStatusEntity;
 import com.intern.project.exceptions.NotFoundException;
 import com.intern.project.mappers.IGeneralStatusMapper;
 import com.intern.project.repos.IGeneralStatusRepository;
@@ -33,4 +34,16 @@ public class GeneralStatusServiceImpl implements IGeneralStatusService {
                 .map(IGeneralStatusMapper.INSTANCE::toDto)
                 .orElseThrow(() -> new NotFoundException("status not found"));
     }
+
+    @Override
+    public GeneralStatusDto getById(int id) {
+        return IGeneralStatusMapper.INSTANCE.toDto(checkIfGeneralStatusExistsById(id));
+    }
+
+    private GeneralStatusEntity checkIfGeneralStatusExistsById(int id){
+        return this.generalStatusRepository.findById(id)
+                .orElseThrow(()->new NotFoundException("STATUSES.NOT.EXISTS"));
+    }
+
+
 }

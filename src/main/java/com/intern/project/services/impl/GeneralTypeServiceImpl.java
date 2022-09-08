@@ -4,6 +4,7 @@ import com.intern.project.dtos.GeneralTypeDto;
 import com.intern.project.mappers.IGeneralTypeMapper;
 import com.intern.project.repos.IGeneralTypeRepository;
 import com.intern.project.services.IGeneralTypeService;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import static com.intern.project.GeneralEnumerationDefinition.STATUS_ACTIVE;
@@ -33,6 +34,7 @@ public class GeneralTypeServiceImpl implements IGeneralTypeService {
                         .getByShortCode(shortCode));
     }
 
+    @Cacheable(value = "generalTypeCache", key = "#typeId")
     @Override
     public GeneralTypeDto getById(int typeId) {
         return generalTypeRepository

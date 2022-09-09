@@ -1,6 +1,7 @@
 package com.intern.project.services.impl;
 
 import com.intern.project.GeneralEnumerationDefinition;
+import com.intern.project.dtos.GeneralTypeDto;
 import com.intern.project.dtos.UserDto;
 import com.intern.project.entities.UserEntity;
 import com.intern.project.exceptions.BadRequestException;
@@ -27,7 +28,10 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public UserDto inquireUser(UserDto userDto) {
+    public UserDto inquireUser(UserDto userDto){
+        //TODO: inquireUser api'sini call edildiği durumda generalTypeService içerisindeki cache işlemini denemek için eklendi. SİLİNECEK...
+        GeneralTypeDto generalTypeDto = generalTypeService
+                .getById(userDto.getTypeId());
         UserEntity userEntity = IUserMapper.INSTANCE.userDtoToUserEntity(userDto);
         UserEntity userEntityResponse = userRepository
                 .findByUserNameAndPassword(userEntity.getUserName(), userEntity.getPassword());

@@ -4,6 +4,7 @@ import com.intern.project.dtos.GeneralTypeDto;
 import com.intern.project.mappers.IGeneralTypeMapper;
 import com.intern.project.repos.IGeneralTypeRepository;
 import com.intern.project.services.IGeneralTypeService;
+import lombok.SneakyThrows;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -34,12 +35,14 @@ public class GeneralTypeServiceImpl implements IGeneralTypeService {
                         .getByShortCode(shortCode));
     }
 
+    @SneakyThrows
     @Cacheable(value = "generalTypeCache", key = "#typeId")
     @Override
     public GeneralTypeDto getById(int typeId) {
+        Thread.sleep(5000);
         return generalTypeRepository
                 .findById(typeId)
                 .map(IGeneralTypeMapper.INSTANCE::generalTypeEntityToGeneralTypeDto)
-                .orElseThrow(() -> new NullPointerException());
+                .orElseThrow(NullPointerException::new);
     }
 }

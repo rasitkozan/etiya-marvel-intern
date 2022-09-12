@@ -1,6 +1,7 @@
 package com.intern.project.auth;
 
 
+import com.intern.project.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,7 +21,6 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
     @Autowired
     private TokenManager tokenManager;
-
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest,
                                     HttpServletResponse httpServletResponse,
@@ -40,7 +40,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
             try {
                 username = tokenManager.getUsernameToken(token);
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+               throw new NotFoundException("USERNAME.NOT.EXISTS");
             }
         }
 

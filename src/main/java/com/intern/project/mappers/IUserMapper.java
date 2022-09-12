@@ -16,6 +16,8 @@ public interface IUserMapper {
 
     UserEntity userDtoToUserEntity(UserDto userDto);
 
+    //TODO: UserEntity'den UserDto çevirirken GeneralStatusDto ve GeneralTypeDto null geliyor. Buradaki mapper eklenecek.
+
     UserDto userEntityToUserDto(UserEntity userEntity);
 
     void updateUserFromDto(UserDto newUserDto, @MappingTarget UserEntity oldUserEntity);

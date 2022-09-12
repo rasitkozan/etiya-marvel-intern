@@ -16,4 +16,6 @@ public interface IUserRepository extends JpaRepository<UserEntity,Integer> {
         UserEntity findByUserNameAndPassword(@Param("userName") String userName,
                                              @Param("password") String password);
         List<UserEntity> findByTypeId(int typeId);
+
+        UserEntity findByUserName(String userName);
 }

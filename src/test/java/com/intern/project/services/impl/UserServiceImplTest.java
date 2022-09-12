@@ -27,7 +27,7 @@ class UserServiceImplTest {
         userRepository = Mockito.mock(IUserRepository.class);
         generalStatusService = Mockito.mock(GeneralStatusServiceImpl.class);
         generalTypeService = Mockito.mock(GeneralTypeServiceImpl.class);
-        userService = new UserServiceImpl(userRepository, generalStatusService, generalTypeService);
+     //   userService = new UserServiceImpl(userRepository, generalStatusService, generalTypeService);
     }
 
 

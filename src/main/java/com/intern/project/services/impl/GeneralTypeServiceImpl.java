@@ -30,6 +30,7 @@ public class GeneralTypeServiceImpl implements IGeneralTypeService {
 
     @Override
     public GeneralTypeDto getByShortCode(String shortCode) {
+        //TODO: St ile aynı
         return IGeneralTypeMapper.INSTANCE
                 .generalTypeEntityToGeneralTypeDto(generalTypeRepository
                         .getByShortCode(shortCode));

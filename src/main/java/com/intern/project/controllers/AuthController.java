@@ -31,9 +31,9 @@ public class AuthController {
         return ResponseEntity.ok(token);
     }
 
-    private void authenticate(String usermail, String password) throws Exception {
+    private void authenticate(String userName, String password) throws Exception {
         try {
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(usermail, password));
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userName, password));
         } catch (DisabledException e) {
             throw new Exception("USER_DISABLED", e);
         } catch (BadCredentialsException e) {

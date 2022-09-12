@@ -6,4 +6,5 @@ public interface IUserService {
     public UserDto create(UserDto userDto);
     public List<UserDto> getByTypeShortCode(String shortCode);
     public UserDto getById(int id);
+    public UserDto findByUserName(String userName);
 }

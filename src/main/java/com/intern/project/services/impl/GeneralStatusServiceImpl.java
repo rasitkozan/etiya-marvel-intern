@@ -29,8 +29,9 @@ public class GeneralStatusServiceImpl implements IGeneralStatusService {
 
     @Override
     public GeneralStatusDto getByShortCode(String shortCode) {
+        //TODO: getByShortCode yerine getByShortCodeAndEntityCodeName ile birlikte olacak şekilde güncellenecek.
         return generalStatusRepository
-                .getByShortCode(shortCode)
+                .getByShortCodeAndEntityCodeName(shortCode,"usr")
                 .map(IGeneralStatusMapper.INSTANCE::toDto)
                 .orElseThrow(() -> new NotFoundException("status not found"));
     }

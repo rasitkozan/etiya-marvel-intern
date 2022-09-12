@@ -14,6 +14,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
@@ -27,15 +29,12 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService userDetailsService;
 
+
     @Autowired
     public void configurePasswordEncoder(AuthenticationManagerBuilder builder) throws Exception {
-        builder.userDetailsService(userDetailsService).passwordEncoder(getBCryptPasswordEncoder());
+        builder.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
     }
 
-    @Bean
-    public BCryptPasswordEncoder getBCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 
     @Bean
     public AuthenticationManager getAuthenticationManager() throws Exception {
@@ -46,16 +45,26 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         //TODO: api bazlı nasıl oluşuyor bakılacak.
         //TODO: bizdeki type'larla değiştir(customer/admin)
-        http.authorizeRequests()
+     /*   http.authorizeRequests()
                 .antMatchers(HttpMethod.GET).hasAnyRole("USER", "ADMIN")
                 .antMatchers(HttpMethod.POST).hasAnyRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE).hasAnyRole("ADMIN")
                 .antMatchers(HttpMethod.PUT).hasAnyRole("ADMIN")
+                .antMatchers("/api/auths").permitAll()
+                .anyRequest().authenticated()
+               .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);*/
+
+        http.csrf().disable()
+                .authorizeRequests().antMatchers("/api/auths").permitAll()
+                .antMatchers("/api/user/create").permitAll()
+                .antMatchers("/v3/api-docs",
+                        "/swagger-ui.html",
+                        "/swagger-ui/**").permitAll()
                 .anyRequest().authenticated()
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-        http.cors().disable();
-        http.csrf().disable();
+        // http.cors().disable();
+        //http.csrf().disable();
         //jwtTokenFilter
         http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
     }
